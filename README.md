@@ -43,6 +43,22 @@ Below are the variables used for the tables which are required to load data incr
 <img width="1318" height="238" alt="{CC73831C-F6F0-4BF9-9744-2541D64F7FC9}" src="https://github.com/user-attachments/assets/bcfcb11b-3775-4e55-a59b-fd2cb3d16f14" />
 
 
+In Bronze Layer tables like 
+* Customers
+* Materials
+are loaded completely in every run, NO INCREMENTAL LOAD cause they are usually small in terms of reocrds
+
+* Fact_Order
+  In This AEDAT i.e Updated_On in english is used to Load Data INcrementally
+  
+"SELECT * FROM SAPSR3.KNA1 WHERE ERDAT >= '" + (DT_WSTR, 20)  @[User::LastLoadDate] + "'"
+
+  
+* Fact Order Detail
+  In this table we don't have any date column by default but this is the table which will have highest number of records so we can't load in fully in everyrun so we use Fact_Order as a Parent atbel and use that table in the sourcequery
+
+  "SELECT * FROM SAPSR3.VBAP WHERE VBELN IN ( SELECT VBELN FROM SAPSR3.VBAK WHERE AEDAT >= '" + @[User::LastLoadOrdDet] + " ')"
+
 
 ## Developemt of SSIS Packages (Silver Layer)
 Silver Layer is used for Transforming brz incremental data and clean it and then load it in stg schema tables
@@ -199,4 +215,53 @@ WHEN NOT MATCHED THEN
 	VALUES(src.material_id, src.material_type, src.material_description, src.base_unit, src.created_on, src.StartDate, src.EndDate, src.IsCurrent);
 
 COMMIT TRANSACTION;
+
+
+## Fact Tables
+In Fact I am showing 2 type of Fact tables
+* Fact_Order which have 2 date column CreatedOn, UpdatedOn
+* Fact_Order_Detail which doesn't have any date column
+
+Both Tables are hugh in terms of records and we only load those record in bronze incrementally which are updated, then we transfrom brz data and load in stg and Upsert sil using stg tables
+Now Stg is used to create views on top of cleaned incremnetally loaded new data with same schema as we have in gold tables and gold tables are upserted using that sil.views which are built on top of stg tables
+NOTE: Every defination of Tables, Views and UPSERT Logics are avalable in the file in this repo called "Table_Views_Upsert_Coomands"
+
+SRC -> Brz -> Stg -> Sil
+		   
+-> Stg -> Views -> Gold
+
+This way we only ETL and Merge those reocrds in gold tables which are new and updated which is very fast as compared to Merge of gold tables with sil based views.
+
+Here is the Sample of End Result of Tables Mentioned Above 
+
+### DimCustomer
+
+<img width="647" height="224" alt="{2A1BBB56-C152-434C-A967-A31E86C97C85}" src="https://github.com/user-attachments/assets/aa0ec40a-2712-4b7e-9a60-bab1afb25131" />
+
+### DimMAterial
+
+<img width="978" height="183" alt="{F37D1786-8AD0-4883-8F83-B8531C053084}" src="https://github.com/user-attachments/assets/abff4f05-0313-4002-a7ea-8440ae5bd971" />
+
+### FactOrder
+
+<img width="578" height="208" alt="{DB7358C2-7FB4-4A82-97FF-D46B9D94C28F}" src="https://github.com/user-attachments/assets/c41e332d-03a7-4755-b503-5a5b32acab1d" />
+
+### FactOrderDetail
+
+<img width="644" height="212" alt="{7C3B7946-4659-4C22-ABE6-FEA4610B128E}" src="https://github.com/user-attachments/assets/f58ed517-a94a-4c85-9675-177c9c99cea7" />
+
+
+
+# Power BI Data Source
+These tables in gold layer are the ENDPOINTS which will be used as data source in Power BI Reports and Dashboard
+
+<img width="1304" height="774" alt="{17F04CE0-50B4-4071-A9BD-EB127FD37A52}" src="https://github.com/user-attachments/assets/5923b346-ddd1-4a18-95f1-f1179b373ed7" />
+
+
+
+
+
+
+
+
 
