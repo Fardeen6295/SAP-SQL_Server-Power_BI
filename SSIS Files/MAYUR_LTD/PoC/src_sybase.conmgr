@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="src_sybase"
+  DTS:DTSID="{9ACB3521-9858-4A3A-BFA2-153664453F5D}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=sample-sap-sybase.database.windows.net;User ID=adminkhan;Initial Catalog=sample-sap-sybase;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-PoC-{9ACB3521-9858-4A3A-BFA2-153664453F5D}sample-sap-sybase.database.windows.net.sample-sap-sybase.adminkhan;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABCkhhJkWXE6q9n3ktD0/7AAAAAACAAAAAAAQZgAAAAEAACAAAAB7X/wyehGMU3a4QFPoSIt4TVw6zZAXsV+41ypvwjiDHAAAAAAOgAAAAAIAACAAAABLu/rk8/vc+TTeBqpKKA13m9EaxhAkDHjHR0SS0pC0F4AAAAD4O+gScOzHtBCOmSbgPfP5n8C4FL+81OHdWQw8pZ+TyDoTL36tqnpYpfLVplHyHNQ+wa/EGamSNback4eWDQFkEAUImnhP82yXuAJRr3/m+XxnEcFdiuiOVqqhJpXdCjChV490m+luGoIMEsIaW2IDm1wKViKTrVXExQ1xjK1khEAAAAAmQZzrHU63bq05H2h/6zxTH2GWpy2+914LqFphyeRxCmXPNLp9VI8MCoAqhLcBf7VhpbjyWUDsolOoc4Cra+Sc</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

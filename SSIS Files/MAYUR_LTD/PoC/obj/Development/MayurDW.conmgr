@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="MayurDW"
+  DTS:DTSID="{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=PoCSQLServerDW;User ID=sa;Initial Catalog=MayurDW;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-PoC-{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}PoCSQLServerDW.mayur_sap.sa;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABCkhhJkWXE6q9n3ktD0/7AAAAAACAAAAAAAQZgAAAAEAACAAAABlD7KM1OjUg98FGh6TASJ1cH9tMiHxOJMN9Q7dcec1rgAAAAAOgAAAAAIAACAAAAASf/tCQh+IqkQM/p+yku3iEPhAUkJF90X58KY1zuDplIAAAADs0OkhfyYzdLg1+FDLCk8AlGj+w9mvJbzi0EtnyhVLWBmQfF4p3KezLhevsIJku8o40mAjwO9x5x1ntZA4i2jBmYwLG2z5fnavXsYFYpcXmnldNoFoR+jwwvfCoJVhDf6+TbkkRs5g0i29fjx5fuECbKAhhSJa8Rhu02XfQ6rEgUAAAABzg9usfMDQZs9XZgTf6+XbZ7wBQLHE07UvH7KSee3eg2lX9KsZ35W+zdW9vImUb8hR5L8EAX1NMDUi8fG5wMsg</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

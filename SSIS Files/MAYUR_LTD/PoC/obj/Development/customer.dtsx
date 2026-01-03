@@ -1,0 +1,895 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/28/2025 12:13:16 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PoCSQLServerDW"
+  DTS:CreatorName="PoCSQLServerDW\adminkhan"
+  DTS:DTSID="{9EF946E8-1FCD-4FED-BC0F-E5DD362795A2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5467.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="customer"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{9AFD15B4-5757-485B-AB61-DE5465E505E6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MayurDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7E455944-8120-4F72-9FD8-AE2C0CF3BF9E}"
+      DTS:ObjectName="MayurDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=PoCSQLServerDW;User ID=sa;Initial Catalog=MayurDW;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-customer-{7E455944-8120-4F72-9FD8-AE2C0CF3BF9E}PoCSQLServerDW.MayurDW.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABCkhhJkWXE6q9n3ktD0/7AAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABQ06ff3SHqU0iE8NNkAx3bgkqHGmHTUkVC46MoGsDkIgAAAAAOgAAAAAIAACAAAAAZBbcTDIlio0TBV5H3UFYI+95Q6nTlg84pP6ZLLEgUCSAAAACpSotrQYzzAt7dfrFlhOFqwccZ4fV+osJaINL9ZI9uzkAAAAA3kXYDNKfmtmN3yGN6ZNYI50wvuaVW0UXhLKoTNU7D+++ZBKcvCmtMaUb0CNHQ+w1fpxejp/WmNtLgkOOy391u</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F995CA44-BA37-41B2-A891-7270EFCD0476}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LastLoadDate">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{636584AF-9BA6-429D-8F6F-5584E0155D48}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NewMaxDate">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{50ED40B9-5642-4129-BAFF-3ABDADD50A27}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT * FROM SAPSR3.KNA1 WHERE ERDAT &gt; '&quot; + (DT_WSTR, 20)  @[User::LastLoadDate] + &quot;'&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceQuery">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT * FROM SAPSR3.KNA1 WHERE ERDAT &gt; ''</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadInBrzCustomer"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{C7748D7B-EBFF-4DBD-B0B9-527F6D595F74}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadInBrzCustomer">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LoadInBrzCustomer\Brz2Sil"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{D785909F-5D39-4970-AE2A-A7243A07D714}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Brz2Sil"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="BrzCustomer"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[brz].[customer]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[MayurDW]"
+                      connectionManagerRefId="Package.ConnectionManagers[MayurDW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[MANDT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="MANDT"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[MANDT]" />
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[KUNNR]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="KUNNR"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[KUNNR]" />
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[NAME1]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="40"
+                          cachedName="NAME1"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[customer_name]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[NAME1]" />
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[ORT01]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="40"
+                          cachedName="ORT01"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[city]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ORT01]" />
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[LAND1]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="LAND1"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[LAND1]" />
+                        <inputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].Columns[ERDAT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="ERDAT"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[created_on]"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ERDAT]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                          dataType="i4"
+                          name="client_id" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="customer_id" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[customer_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="customer_name" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[city]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="city" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="country" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input].ExternalColumns[created_on]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="created_on" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="KNA1Sybase"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::SourceQuery</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Connections[OleDbConnection]"
+                      connectionManagerID="{9ACB3521-9858-4A3A-BFA2-153664453F5D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[src_sybase]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[MANDT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[MANDT]"
+                          length="3"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[MANDT]"
+                          name="MANDT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[KUNNR]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[KUNNR]"
+                          length="10"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[KUNNR]"
+                          name="KUNNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[NAME1]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[NAME1]"
+                          length="40"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[NAME1]"
+                          name="NAME1"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ORT01]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[ORT01]"
+                          length="40"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ORT01]"
+                          name="ORT01"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[LAND1]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[LAND1]"
+                          length="3"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[LAND1]"
+                          name="LAND1"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ERDAT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[ERDAT]"
+                          length="10"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].Columns[ERDAT]"
+                          name="ERDAT"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[MANDT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="MANDT" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[KUNNR]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="KUNNR" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[NAME1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          name="NAME1" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[ORT01]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          name="ORT01" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[LAND1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="LAND1" />
+                        <externalMetadataColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output].ExternalColumns[ERDAT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="ERDAT" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[MANDT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[MANDT]"
+                          name="MANDT" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[KUNNR]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[KUNNR]"
+                          name="KUNNR" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[NAME1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[NAME1]"
+                          name="NAME1" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ORT01]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ORT01]"
+                          name="ORT01" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[LAND1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[LAND1]"
+                          name="LAND1" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ERDAT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ERDAT]"
+                          name="ERDAT" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\LoadInBrzCustomer\Brz2Sil.Paths[OLE DB Source Output]"
+                  endId="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LoadInBrzCustomer\LastLoadDate"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{326B78F0-D34D-4593-A1F2-EE4E32C989A4}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="LastLoadDate"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E455944-8120-4F72-9FD8-AE2C0CF3BF9E}"
+              SQLTask:SqlStatementSource="SELECT LastLoadDate FROM DBO.ETL_Control WHERE TableName = 'KNA1'"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::LastLoadDate" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LoadInBrzCustomer\NewMaxDate"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ee603996-6d5d-4329-9242-d69742160eb1}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="NewMaxDate"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9ACB3521-9858-4A3A-BFA2-153664453F5D}"
+              SQLTask:SqlStatementSource="SELECT MAX(ERDAT) newmax FROM [SAPSR3].[KNA1]"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::NewMaxDate" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LoadInBrzCustomer\TruncateBrz"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1BA51855-F7A1-4B35-B10A-2344D30377D5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="TruncateBrz"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E455944-8120-4F72-9FD8-AE2C0CF3BF9E}"
+              SQLTask:SqlStatementSource="DELETE FROM brz.customer" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LoadInBrzCustomer\UpdateLastLoadDate"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{409e789e-c5c7-4f27-a22d-703a6613fd1b}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="UpdateLastLoadDate"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E455944-8120-4F72-9FD8-AE2C0CF3BF9E}"
+              SQLTask:SqlStatementSource="UPDATE dbo.ETL_Control&#xA;SET LastLoadDate = ?&#xA;WHERE TableName = 'KNA1'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::NewMaxDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="8" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{FCEDAD6E-2A26-4714-80AC-14FF7365507C}"
+          DTS:From="Package\LoadInBrzCustomer\LastLoadDate"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\LoadInBrzCustomer\TruncateBrz" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{30E33ACF-A43F-4E5D-86DA-49290CB9B4AE}"
+          DTS:From="Package\LoadInBrzCustomer\TruncateBrz"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\LoadInBrzCustomer\Brz2Sil" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{FBCD97DF-AF77-49C5-ABDF-701E7F990C9D}"
+          DTS:From="Package\LoadInBrzCustomer\Brz2Sil"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\LoadInBrzCustomer\NewMaxDate" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{C4873A9E-8CF0-4240-AACA-9CC00F061598}"
+          DTS:From="Package\LoadInBrzCustomer\NewMaxDate"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\LoadInBrzCustomer\UpdateLastLoadDate" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="139,42"
+          Id="Package\LoadInBrzCustomer\TruncateBrz"
+          TopLeft="121.5,71.5" />
+        <EdgeLayout
+          Id="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint]"
+          TopLeft="111,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80,24"
+              Start="0,0"
+              End="80,16.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8"
+                    Point2="0,12"
+                    Point3="4,12" />
+                  <mssgle:LineSegment
+                    End="76,12" />
+                  <mssgle:CubicBezierSegment
+                    Point1="76,12"
+                    Point2="80,12"
+                    Point3="80,16" />
+                  <mssgle:LineSegment
+                    End="80,16.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 1]"
+          TopLeft="191,113.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="69.5,37"
+              Start="0,0"
+              End="69.5,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5"
+                    Point2="0,18.5"
+                    Point3="4,18.5" />
+                  <mssgle:LineSegment
+                    End="65.5,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="65.5,18.5"
+                    Point2="69.5,18.5"
+                    Point3="69.5,22.5" />
+                  <mssgle:LineSegment
+                    End="69.5,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="114,42"
+          Id="Package\LoadInBrzCustomer\Brz2Sil"
+          TopLeft="203.5,150.5" />
+        <EdgeLayout
+          Id="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 2]"
+          TopLeft="260.5,192.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68.5,43"
+              Start="0,0"
+              End="68.5,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5"
+                    Point2="0,21.5"
+                    Point3="4,21.5" />
+                  <mssgle:LineSegment
+                    End="64.5,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="64.5,21.5"
+                    Point2="68.5,21.5"
+                    Point3="68.5,25.5" />
+                  <mssgle:LineSegment
+                    End="68.5,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="147,42"
+          Id="Package\LoadInBrzCustomer\LastLoadDate"
+          TopLeft="37.5,5.5" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\LoadInBrzCustomer\NewMaxDate"
+          TopLeft="256.5,235.5" />
+        <EdgeLayout
+          Id="Package\LoadInBrzCustomer.PrecedenceConstraints[Constraint 3]"
+          TopLeft="329,277.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="89,68"
+              Start="0,0"
+              End="89,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30"
+                    Point2="0,34"
+                    Point3="4,34" />
+                  <mssgle:LineSegment
+                    End="85,34" />
+                  <mssgle:CubicBezierSegment
+                    Point1="85,34"
+                    Point2="89,34"
+                    Point3="89,38" />
+                  <mssgle:LineSegment
+                    End="89,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="183,42"
+          Id="Package\LoadInBrzCustomer\UpdateLastLoadDate"
+          TopLeft="326.5,345.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="517,434"
+          Size="517,477"
+          Id="Package\LoadInBrzCustomer"
+          TopLeft="122,85" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadInBrzCustomer\Brz2Sil">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="144,42"
+          Id="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase"
+          TopLeft="436,267" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer"
+          TopLeft="482,379" />
+        <EdgeLayout
+          Id="Package\LoadInBrzCustomer\Brz2Sil.Paths[OLE DB Source Output]"
+          TopLeft="508,309">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.5,70"
+              Start="0,0"
+              End="45.5,62.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31"
+                    Point2="0,35"
+                    Point3="4,35" />
+                  <mssgle:LineSegment
+                    End="41.5,35" />
+                  <mssgle:CubicBezierSegment
+                    Point1="41.5,35"
+                    Point2="45.5,35"
+                    Point3="45.5,39" />
+                  <mssgle:LineSegment
+                    End="45.5,62.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadInBrzCustomer\Brz2Sil\KNA1Sybase">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadInBrzCustomer\Brz2Sil\BrzCustomer">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

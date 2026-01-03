@@ -1,0 +1,340 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/28/2025 4:34:44 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PoCSQLServerDW"
+  DTS:CreatorName="PoCSQLServerDW\adminkhan"
+  DTS:DTSID="{ED5E0789-3503-4252-886F-FF93B6CB49A7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5467.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Gold"
+  DTS:PackageType="5"
+  DTS:VersionBuild="22"
+  DTS:VersionGUID="{91A62126-383C-46AF-BE38-1696B970ABE1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{14E0F94D-4639-4715-8EAD-021E5EC43CEA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="LastLoadOrderDetailUpsert">
+      <DTS:VariableValue
+        DTS:DataType="7">12/29/2025 6:18:30 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{42132BF6-B850-429B-858B-EFCBAC2B2E95}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="LastLoadOrderUpsert">
+      <DTS:VariableValue
+        DTS:DataType="7">12/29/2025 2:08:35 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F5752E2F-2527-45DE-A5B8-DF888CB18FD1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="NewMaxOrder">
+      <DTS:VariableValue
+        DTS:DataType="7">12/29/2025 2:13:20 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BE67D6DE-25B3-4C0B-8179-437681A6FC25}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="NewMaxOrderDetail">
+      <DTS:VariableValue
+        DTS:DataType="7">12/29/2025 6:18:46 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadInGoldCustomer"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{58FB9900-4676-411D-BDBD-C03BAD5F0D84}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadInGoldCustomer">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LoadInGoldCustomer\SiltoGoldUpsert"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{D43E73C0-0B7A-4E73-9DCA-983A535AEDB7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SiltoGoldUpsert"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}"
+              SQLTask:SqlStatementSource="MERGE gold.DimCustomer as trg&#xA;USING sil.customer as src&#xA;ON trg.CustomerID = src.customer_id&#xA;&#xA;WHEN MATCHED &#xA;AND(&#xA;&#x9;trg.CustomerName &lt;&gt; src.customer_name OR&#xA;&#x9;trg.City &lt;&gt; src.city OR&#xA;&#x9;trg.Country &lt;&gt; src.country&#xA;)&#xA;THEN UPDATE SET&#xA;&#x9;trg.CustomerName = src.customer_name,&#xA;&#x9;trg.City = src.city,&#xA;&#x9;trg.Country = src.country,&#xA;&#x9;trg.created_on = src.created_on,&#xA;&#x9;trg.modified_on = src.modified_on&#xA;&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;&#x9;INSERT (CustomerID, CustomerName, City, Country, created_on, modified_on)&#xA;&#x9;VALUES (src.customer_id, src.customer_name, src.city, src.country, src.created_on, src.modified_on);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadInGoldFactOrder"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{5C3F0AFC-056A-42E8-86EC-1B68A08EEDFA}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadInGoldFactOrder">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LoadInGoldFactOrder\UpsertGoldFactOrders"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{832EEE26-9368-47F8-8824-D00BF96A3409}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="UpsertGoldFactOrders"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}"
+              SQLTask:SqlStatementSource="BEGIN TRANSACTION;&#xA;&#xA;MERGE gold.FactOrder AS trg&#xA;USING sil.vw_factorder_input as src&#xA;ON trg.OrderID = src.order_id&#xA;WHEN MATCHED AND(&#xA;&#x9;ISNULL(trg.DimCustomerKey, -1) &lt;&gt; ISNULL(src.DimCustomerKey, -1) OR&#xA;&#x9;ISNULL(trg.ModifiedOn, '1900-01-01') &lt;&gt; ISNULL(src.modified_on, '1900-01-01') OR&#xA;&#x9;ISNULL(trg.Amount, 0) &lt;&gt; ISNULL(src.amount, 0) OR&#xA;&#x9;ISNULL(trg.Currency, 'ABC') &lt;&gt; ISNULL(src.currency, 'ABC')&#xA;)&#xA;THEN UPDATE SET&#xA;&#x9;trg.DimCustomerKey = src.DimCustomerKey,&#xA;&#x9;trg.ModifiedOn = src.modified_on,&#xA;&#x9;trg.Amount = src.amount,&#xA;&#x9;trg.Currency = src.currency&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;INSERT (OrderID, DimCustomerKey, CreatedOn, ModifiedOn, Amount, Currency)&#xA;VALUES (src.order_id, src.DimCustomerKey, src.created_on, src.modified_on, src.amount, src.currency);&#xA;&#xA;COMMIT TRANSACTION;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::LastLoadOrderUpsert"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadInGoldFactOrderDetail"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6B4201D5-CE92-4BEB-ADF2-B8B1BD63D666}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadInGoldFactOrderDetail">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LoadInGoldFactOrderDetail\UpsertGoldFactOrderDetail"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{59D655EF-5B67-461B-98BA-244CD4500FC5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="UpsertGoldFactOrderDetail"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}"
+              SQLTask:SqlStatementSource="BEGIN TRANSACTION;&#xA;&#xA;MERGE gold.FactOrderDetail AS trg&#xA;USING sil.vw_factorderdetail_input AS src&#xA;ON trg.OrderID = src.order_id AND trg.ItemID = src.item_id&#xA;WHEN MATCHED AND(&#xA;&#x9;trg.DimMaterialKey &lt;&gt; src.DimMaterialKey OR&#xA;&#x9;trg.Quantity &lt;&gt; src.quantity OR&#xA;&#x9;trg.Amount &lt;&gt; src.amount OR&#xA;&#x9;trg.ModifiedOn &lt;&gt; src.modified_on&#xA;)&#xA;THEN UPDATE SET&#xA;&#x9;trg.DimMaterialKey = src.DimMaterialKey,&#xA;&#x9;trg.Quantity = src.quantity,&#xA;&#x9;trg.Amount = src.amount,&#xA;&#x9;trg.ModifiedOn = src.modified_on&#xA;&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;INSERT (OrderID, ItemID ,DimMaterialKey, Quantity, Amount, CreatedOn, ModifiedOn)&#xA;VALUES (src.order_id, src.item_id, src.DimMaterialKey, src.quantity, src.amount, src.created_on, src.modified_on);&#xA;&#xA;COMMIT TRANSACTION;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::LastLoadOrderDetailUpsert"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadInGoldMaterial"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{ce0b7870-0f8a-4fc4-9842-84e325e5bf7d}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadInGoldMaterial">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LoadInGoldMaterial\SiltoGoldUpsert"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b8a1e4d2-5265-4fa2-a6af-29048ab746f8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SiltoGoldUpsert"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{19C57C4A-84DB-4AAE-92DA-DD1E595FDF0D}"
+              SQLTask:SqlStatementSource="BEGIN TRANSACTION; &#xA;&#xA;MERGE gold.DimMaterial as trg&#xA;USING sil.material as src&#xA;ON trg.MaterialID = src.material_id AND trg.IsCurrent = 'Y'&#xA;WHEN MATCHED AND (&#xA;&#x9;trg.MaterialType &lt;&gt; src.material_type OR&#xA;&#x9;trg.MaterialDescription &lt;&gt; src.material_description OR&#xA;&#x9;trg.BaseUnit &lt;&gt; src.base_unit&#xA;)&#xA;THEN UPDATE SET&#xA;&#x9;trg.EndDate = CURRENT_TIMESTAMP,&#xA;&#x9;trg.IsCurrent = 'N';&#xA;&#xA;MERGE gold.DimMaterial as trg &#xA;USING sil.material as src&#xA;ON trg.MaterialID = src.material_id&#xA;AND trg.IsCurrent = 'Y'&#xA;WHEN NOT MATCHED THEN &#xA;&#x9;INSERT (MaterialID, MaterialType, MaterialDescription, BaseUnit, CreatedOn, StartDate, EndDate, IsCurrent)&#xA;&#x9;VALUES(src.material_id, src.material_type, src.material_description, src.base_unit, src.created_on, src.StartDate, src.EndDate, src.IsCurrent);&#xA;&#xA;COMMIT TRANSACTION;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{E4CB4234-A7C0-40CB-856E-5CF4E5F60CDB}"
+      DTS:From="Package\LoadInGoldCustomer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadInGoldMaterial" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A4E6D22A-255F-4427-8E6D-163A6A023797}"
+      DTS:From="Package\LoadInGoldMaterial"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\LoadInGoldFactOrder" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{9CC46AB9-4798-43AB-B17C-36EE67398436}"
+      DTS:From="Package\LoadInGoldFactOrder"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\LoadInGoldFactOrderDetail" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\LoadInGoldCustomer\SiltoGoldUpsert"
+          TopLeft="63,12.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="261,110"
+          Size="261,152"
+          Id="Package\LoadInGoldCustomer"
+          TopLeft="111,160" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\LoadInGoldFactOrder\UpsertGoldFactOrders"
+          TopLeft="32.5,10.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="263,78"
+          Size="263,121"
+          Id="Package\LoadInGoldFactOrder"
+          TopLeft="826,170" />
+        <NodeLayout
+          Size="212,42"
+          Id="Package\LoadInGoldFactOrderDetail\UpsertGoldFactOrderDetail"
+          TopLeft="29.5,22.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="274,92"
+          Size="274,135"
+          Id="Package\LoadInGoldFactOrderDetail"
+          TopLeft="818,345" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\LoadInGoldMaterial\SiltoGoldUpsert"
+          TopLeft="71,20.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="272,118"
+          Size="272,160"
+          Id="Package\LoadInGoldMaterial"
+          TopLeft="490,157" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="372,236.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="118,0"
+              Start="0,0"
+              End="110.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="110.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="762,233.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="64,0"
+              Start="0,0"
+              End="56.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="56.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="956.25,291">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
