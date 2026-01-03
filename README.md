@@ -13,6 +13,14 @@
 
 <img width="1575" height="467" alt="Untitled-2025-12-23-1756" src="https://github.com/user-attachments/assets/4e0f3d95-180b-4f77-9848-72684c1e8ea6" />
 
+
+## End Result is Interactive Dashboard
+### Click on the Image below to interact with the live Power BI Report
+
+[![Power BI Dashboard View](https://github.com/user-attachments/assets/e379db5b-1f38-43c6-89fb-5e5a7ab4ff27)](https://app.powerbi.com/view?r=eyJrIjoiMWZjYzRiNGYtZTAzNy00YzRjLWIxN2MtYWQ4NTcyMTgxZGVkIiwidCI6IjZlZDIzOTM2LTIyM2QtNGU3ZS1hN2Q1LWExZGQ5NWU0OTM0NyJ9)
+
+
+
 ### Quick Explanation of the Project Requirement 
 * Client wanted a Cost effective approach to create power bi reports and dashboard by avoiding cloud storage and resource
 * For that We had to use On Prem SQL Server and SSIS for creating Pipeline for Data Warehouse On Prem
