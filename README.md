@@ -1,5 +1,11 @@
 # SAP-SQL_Server-Power_BI
 
+
+### Key Benefits of this Architecture
+* Cost Effective - No Monthly bllls of cloud, everything is on Client's On Prem Machine Hosted on Client's Local Network.
+* Fast - Direct Query will be fast as everything is on same Netwrok (IP Address).
+* Security - Everything is on Client's Machine and Storage hence security is Top Notch.
+
 ## Technologies Used for the Project
 * SAP Sybase as Source of Raw Data Hosted on AWS VM
 * Virtual Machine with these Softwares for Development provided by Client on Client's Local Network
