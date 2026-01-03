@@ -17,7 +17,8 @@
   * Power BI Desktop
   * Power BI Service Account
 
-<img width="1575" height="467" alt="Untitled-2025-12-23-1756" src="https://github.com/user-attachments/assets/4e0f3d95-180b-4f77-9848-72684c1e8ea6" />
+<img width="1524" height="788" alt="Architecture_Sybase_SQLServer_PowerBI" src="https://github.com/user-attachments/assets/237cab86-5368-415d-928c-14fbd383065a" />
+
 
 
 ## End Result is an Interactive Dashboard
